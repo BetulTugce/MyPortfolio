@@ -2,7 +2,7 @@
 
 namespace MyPortfolio.DAL.Entities
 {
-    public class Featured : BaseEntity
+    public class Feature : BaseEntity
     {
         public string Title { get; set; }
         public string Content { get; set; }

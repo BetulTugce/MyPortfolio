@@ -1,7 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using MyPortfolio.DAL.Contexts;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<MyPortfolioDbContext>(opt =>
+{
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), options =>
+    {
+        options.MigrationsAssembly(Assembly.GetAssembly(typeof(MyPortfolioDbContext)).GetName().Name);
+    });
+});
 
 var app = builder.Build();
 
