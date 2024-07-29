@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyPortfolio.DAL.Entities;
+using MyPortfolio.DAL.Entities.Common;
 
 namespace MyPortfolio.DAL.Contexts
 {
     public class MyPortfolioDbContext : DbContext
     {
+        public MyPortfolioDbContext(DbContextOptions<MyPortfolioDbContext> options):base(options) { }
+
         #region Veritabanı Bağlantısı için Yapılandırma
         //Daha iyi bir yaklaşım olması açısından connection string appsettings.json dosyasında tanımlandı ve Program.cs üzerinde DbContext yapılandırması gerçekleştirildi..
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -23,5 +26,27 @@ namespace MyPortfolio.DAL.Contexts
         public DbSet<Skill> Skills { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }
         public DbSet<Testimonial> Testimonials { get; set; }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            //ChangeTracker : Entity Framework tarafından sağlanan bir özelliktir. Entityler üzerinden yapılan değişiklerin ya da yeni eklenen verinin yakalanmasını sağlayan propertydir. Update operasyonlarında Track edilen verileri yakalayıp elde etmemizi sağlar.
+            var datas = ChangeTracker
+                 .Entries<BaseEntity>();
+
+            foreach (var data in datas)
+            {
+                _ = data.State switch
+                {
+                    // Eğer entity ekleniyorsa, CreatedDate'i şu anki zaman ile ayarlar..
+                    EntityState.Added => data.Entity.CreatedDate = DateTime.UtcNow,
+                    // Eğer entity güncelleniyorsa, UpdatedDate'i şu anki zaman ile ayarlar.
+                    EntityState.Modified => data.Entity.UpdatedDate = DateTime.UtcNow,
+                    _ => DateTime.UtcNow
+                };
+            }
+
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
     }
 }
