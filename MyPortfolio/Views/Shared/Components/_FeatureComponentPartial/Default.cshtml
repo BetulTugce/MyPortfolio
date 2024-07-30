@@ -1,20 +1,19 @@
-﻿<section id="home" class="s-home page-hero target-section" data-parallax="scroll" data-image-src="https://i.hizliresim.com/qs9afky.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
+﻿@model List<MyPortfolio.DAL.Entities.Feature>
+<section id="home" class="s-home page-hero target-section" data-parallax="scroll" data-image-src="https://i.hizliresim.com/qs9afky.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
 
     <div class="overlay"></div>
     <div class="shadow-overlay"></div>
-
     <div class="home-content">
 
         <div class="row home-content__main">
+            @foreach (var item in Model)
+            {
+                <h3>@item.Title</h3>
 
-            <h3>Hello There</h3>
-
-            <h1>
-                I am Betül Tuğçe Dikdoğmuş. <br>
-                I am a graphic & UI/UX <br>
-                designer based in Somewhere.
-            </h1>
-
+                <h1>
+                    @item.Content
+                </h1>
+            }
             <div class="home-content__buttons">
                 <a href="#works" class="smoothscroll btn btn--stroke">
                     Latest Projects
@@ -32,7 +31,7 @@
 
         </div>
 
-    </div> <!-- end home-content -->
+    </div>
 
     <ul class="home-social">
         <li>
@@ -51,6 +50,5 @@
             <a href="#"><i class="im im-pinterest" aria-hidden="true"></i><span>Pinterest</span></a>
         </li>
     </ul>
-    <!-- end home-social -->
 
 </section>
