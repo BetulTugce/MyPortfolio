@@ -1,67 +1,68 @@
-﻿<div class="row about-content about-content--timeline">
+﻿@model List<MyPortfolio.DAL.Entities.Experience>
+@* @{
+    var sortedExperiences = Model
+        .OrderByDescending(e => e.EndDate == null)  // EndDatei null olanları öne alır
+        .ThenByDescending(e => e.EndDate)           // Sonra EndDate'e göre sıralar
+        .ThenByDescending(e => e.StartDate)         // Son olarak StartDate'e göre sıralar
+        .ToList();
+} *@
+
+<div class="row about-content about-content--timeline">
 
     <div class="col-full text-center">
         <h3>My Work Experience.</h3>
     </div>
 
-    <div class="col-six tab-full left">
-        <div class="timeline">
+    @foreach (var experience in Model.OrderByDescending(e => e.EndDate == null).ThenByDescending(e => e.EndDate).ThenByDescending(e => e.StartDate).ToList())
+    {
+        <div class="col-six tab-full left">
+            <div class="timeline">
 
-            <div class="timeline__block">
-                <div class="timeline__bullet"></div>
-                <div class="timeline__header">
-                    <p class="timeline__timeframe">July 2015 - Present</p>
-                    <h3>RDC+</h3>
-                    <h5>Backend Developer</h5>
+                <div class="timeline__block">
+                    <div class="timeline__bullet"></div>
+                    <div class="timeline__header">
+                        <p class="timeline__timeframe">@experience.StartDate.ToString("yyyy-MM") - @(experience.EndDate != null ? experience.EndDate.Value.ToString("yyyy-MM") : "Present")</p>
+                        <h3>@experience.Company</h3>
+                        <h5>@experience.Position</h5>
+                    </div>
+                    <div class="timeline__desc">
+                        <p>@experience.Description</p>
+                    </div>
                 </div>
-                <div class="timeline__desc">
-                    <p>Lorem ipsum Occaecat do esse ex et dolor culpa nisi ex in magna consectetur nisi cupidatat laboris esse eiusmod deserunt aute do quis velit esse sed Ut proident cupidatat nulla esse cillum laborum occaecat nostrud sit dolor incididunt amet est occaecat nisi.</p>
-                </div>
-            </div> <!-- end timeline__block -->
 
-            <div class="timeline__block">
-                <div class="timeline__bullet"></div>
-                <div class="timeline__header">
-                    <p class="timeline__timeframe">July 2014 - June 2015</p>
-                    <h3>Super Cool Agency</h3>
-                    <h5>Front-end Developer</h5>
-                </div>
-                <div class="timeline__desc">
-                    <p>Lorem ipsum Occaecat do esse ex et dolor culpa nisi ex in magna consectetur nisi cupidatat laboris esse eiusmod deserunt aute do quis velit esse sed Ut proident cupidatat nulla esse cillum laborum occaecat nostrud sit dolor incididunt amet est occaecat nisi incididunt.</p>
-                </div>
-            </div> <!-- end timeline__block -->
+            </div>
+        </div>
+    }
 
-        </div> <!-- end timeline -->
-    </div> <!-- end left -->
 
-    <div class="col-six tab-full right">
-        <div class="timeline">
+    @*  <div class="col-six tab-full right">
+    <div class="timeline">
 
-            <div class="timeline__block">
-                <div class="timeline__bullet"></div>
-                <div class="timeline__header">
-                    <p class="timeline__timeframe">July 2012 - June 2014</p>
-                    <h3>Great Design Studio</h3>
-                    <h5>Web Designer</h5>
-                </div>
-                <div class="timeline__desc">
-                    <p>Lorem ipsum Occaecat do esse ex et dolor culpa nisi ex in magna consectetur nisi cupidatat laboris esse eiusmod deserunt aute do quis velit esse sed Ut proident cupidatat nulla esse cillum laborum occaecat nostrud sit dolor incididunt amet est occaecat nisi.</p>
-                </div>
-            </div> <!-- end timeline__block -->
+    <div class="timeline__block">
+    <div class="timeline__bullet"></div>
+    <div class="timeline__header">
+    <p class="timeline__timeframe">July 2012 - June 2014</p>
+    <h3>Great Design Studio</h3>
+    <h5>Web Designer</h5>
+    </div>
+    <div class="timeline__desc">
+    <p>Lorem ipsum Occaecat do esse ex et dolor culpa nisi ex in magna consectetur nisi cupidatat laboris esse eiusmod deserunt aute do quis velit esse sed Ut proident cupidatat nulla esse cillum laborum occaecat nostrud sit dolor incididunt amet est occaecat nisi.</p>
+    </div>
+    </div> <!-- end timeline__block -->
 
-            <div class="timeline__block">
-                <div class="timeline__bullet"></div>
-                <div class="timeline__header">
-                    <p class="timeline__timeframe">July 2011 - June 2012</p>
-                    <h3>Epic Design Agency</h3>
-                    <h5>Web Designer</h5>
-                </div>
-                <div class="timeline__desc">
-                    <p>Lorem ipsum Occaecat do esse ex et dolor culpa nisi ex in magna consectetur nisi cupidatat laboris esse eiusmod deserunt aute do quis velit esse sed Ut proident cupidatat nulla esse cillum laborum occaecat nostrud sit dolor incididunt amet est occaecat nisi incididunt.</p>
-                </div>
-            </div> <!-- end timeline__block -->
+    <div class="timeline__block">
+    <div class="timeline__bullet"></div>
+    <div class="timeline__header">
+    <p class="timeline__timeframe">July 2011 - June 2012</p>
+    <h3>Epic Design Agency</h3>
+    <h5>Web Designer</h5>
+    </div>
+    <div class="timeline__desc">
+    <p>Lorem ipsum Occaecat do esse ex et dolor culpa nisi ex in magna consectetur nisi cupidatat laboris esse eiusmod deserunt aute do quis velit esse sed Ut proident cupidatat nulla esse cillum laborum occaecat nostrud sit dolor incididunt amet est occaecat nisi incididunt.</p>
+    </div>
+    </div> <!-- end timeline__block -->
 
-        </div> <!-- end timeline -->
-    </div> <!-- end right -->
+    </div> <!-- end timeline -->
+    </div> <!-- end right --> *@
 
 </div>
