@@ -1,9 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyPortfolio.DAL.Contexts;
 
 namespace MyPortfolio.ViewComponents
 {
     public class _SkillComponentPartial : ViewComponent
     {
-        public IViewComponentResult Invoke() { return View(); }
+        private readonly MyPortfolioDbContext _context;
+        public _SkillComponentPartial(MyPortfolioDbContext context)
+        {
+            _context = context;
+        }
+        public IViewComponentResult Invoke() 
+        { 
+            var values= _context.Skills.ToList();
+            return View(values); 
+        }
     }
 }
