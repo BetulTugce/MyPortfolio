@@ -13,35 +13,75 @@
 
     <div class="row contact__main">
         <div class="col-eight tab-full contact__form">
-            <form name="contactForm" id="contactForm" method="post" action="">
+            <form name="contactForm" id="contactForm" method="post" novalidate>
                 <fieldset>
-
                     <div class="form-field">
-                        <input name="contactName" type="text" id="contactName" placeholder="Name" value="" minlength="2" required="" aria-required="true" class="full-width">
+                        <input name="NameSurname" type="text" id="contactName" placeholder="Name Surname" required class="full-width">
                     </div>
                     <div class="form-field">
-                        <input name="contactEmail" type="email" id="contactEmail" placeholder="Email" value="" required="" aria-required="true" class="full-width">
+                        <input name="Email" type="email" id="contactEmail" placeholder="Email" required class="full-width">
                     </div>
                     <div class="form-field">
-                        <input name="contactSubject" type="text" id="contactSubject" placeholder="Subject" value="" class="full-width">
+                        <input name="Subject" type="text" id="contactSubject" placeholder="Subject" required class="full-width">
                     </div>
                     <div class="form-field">
-                        <textarea name="contactMessage" id="contactMessage" placeholder="message" rows="10" cols="50" required="" aria-required="true" class="full-width"></textarea>
+                        <textarea name="Content" id="contactMessage" placeholder="Message" required class="full-width"></textarea>
                     </div>
                     <div class="form-field">
-                        <button class="full-width btn--primary">Submit</button>
-                        <div class="submit-loader">
-                            <div class="text-loader">Sending...</div>
-                            <div class="s-loader">
-                                <div class="bounce1"></div>
-                                <div class="bounce2"></div>
-                                <div class="bounce3"></div>
-                            </div>
-                        </div>
+                        <button type="button" onclick="submitForm()" class="full-width btn--primary">Submit</button>
                     </div>
-
                 </fieldset>
             </form>
+
+            <script>
+                function submitForm() {
+                    var form = document.getElementById('contactForm');
+
+                    // Formun validasyon kurallarına uygun olup olmadığını kontrol eder..
+                    if (!form.checkValidity()) {
+                        // Eğer form geçerli değilse, tarayıcı tarafından sağlanan hata mesajlarını göster
+                        form.reportValidity();
+                        return;
+                    }
+
+                    var formData = new FormData(form);
+
+                    fetch('/ContactForm/Submit', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // alert('Form başarıyla gönderildi!');
+                                // Başarılıysa başarı mesajını gösterir..
+                                document.querySelector('.message-success').style.display = 'block';
+                                // Formu temizler..
+                                form.reset();
+                                // Başarı mesajını 10 saniye sonra gizler..
+                                setTimeout(function () {
+                                    document.querySelector('.message-success').style.display = 'none';
+                                }, 10000); // 10000 milisaniye = 10 saniye
+                            } else {
+                                // Hatalıysa uyarı mesajını gösterir..
+                                document.querySelector('.message-warning').style.display = 'block';
+                                // Uyarı mesajını 10 saniye sonra gizler..
+                                setTimeout(function () {
+                                    document.querySelector('.message-warning').style.display = 'none';
+                                }, 10000); // 10000 milisaniye = 10 saniye
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            // Hata durumunda uyarı mesajını gösterir..
+                            document.querySelector('.message-warning').style.display = 'block';
+                            // Uyarı mesajını 10 saniye sonra gizler..
+                            setTimeout(function () {
+                                document.querySelector('.message-warning').style.display = 'none';
+                            }, 10000); // 10000 milisaniye = 10 saniye
+                        });
+                }
+            </script>
 
             <!-- contact-warning -->
             <div class="message-warning">
