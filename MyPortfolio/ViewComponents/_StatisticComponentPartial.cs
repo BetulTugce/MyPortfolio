@@ -2,7 +2,7 @@
 
 namespace MyPortfolio.ViewComponents
 {
-    public class _StatisticSomponentPartial : ViewComponent
+    public class _StatisticComponentPartial : ViewComponent
     {
         public IViewComponentResult Invoke() { return View(); }
     }
