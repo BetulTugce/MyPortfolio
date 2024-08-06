@@ -38,7 +38,7 @@
                                         <td>@exp.Company</td>
                                         <td>@exp.Position</td>
                                         <td>@exp.StartDate.ToShortDateString()</td>
-                                        <td>@exp.EndDate</td>
+                                        <td>@(exp.EndDate != null ? exp.EndDate.Value.ToString("dd.MM.yyyy") : "Present")</td>
                                         <td>
                                             <a href="/Experience/DeleteExperience/@exp.Id" class="btn btn-danger">
                                                 <i class="la la-trash"></i>@* Delete *@
