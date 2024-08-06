@@ -1,0 +1,45 @@
+﻿@model Experience
+@{
+    ViewData["Title"] = "CreateExperience";
+    Layout = "~/Views/Layout/Index.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <h4 class="page-title">Experiences</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Add A New Experience</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-sub">
+                            To add a new experience, please fill in the relevant fields.
+                        </div>
+                        <form method="post">
+                            <label>Company :</label>
+                            @* asp-for : .net coreda kullanılan bir tag helperdır. Yukarıdaki modele bağlı olarak o modelin içindeki propertylere erişim sağlamamıza yardımcı olur. *@
+                            <input type="text" asp-for="Company" class="form-control" />
+                            <br />
+                            <label>Position :</label>
+                            <input type="text" asp-for="Position" class="form-control" />
+                            <br />
+                            <label>Description :</label>
+                            <textarea rows="4" asp-for="Description" class="form-control"></textarea>
+                            <br />
+                            <label>Start Date :</label>
+                            <input type="date" asp-for="StartDate" class="form-control" />
+                            <br />
+                            <label>End Date :</label>
+                            <input type="date" asp-for="EndDate" class="form-control" />
+                            <br />
+                            <button class="btn btn-primary">Add</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
