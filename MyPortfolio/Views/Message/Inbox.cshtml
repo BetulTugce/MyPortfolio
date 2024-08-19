@@ -1,0 +1,72 @@
+﻿@model List<Message>
+@{
+    ViewData["Title"] = "Inbox";
+    Layout = "~/Views/Layout/Index.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <h4 class="page-title">Experiences</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Messages</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-sub">
+                            You can check the messages from this panel.
+                        </div>
+                        <table class="table mt-3">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name Surname</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Subject</th>
+                                    <th scope="col">Content</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Is Read</th>
+                                    <th scope="col">View</th>
+                                    <th scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var message in Model)
+                                {
+                                    <tr>
+                                        <td>@message.Id</td>
+                                        <td>@message.NameSurname</td>
+                                        <td>@message.Email</td>
+                                        <td>@message.Subject</td>
+                                        <td>@message.Content.Substring(0, 10)</td>
+                                        <td>@message.CreatedDate.ToShortDateString()</td>
+                                        <td>
+                                            @if (message.IsRead)
+                                            {
+                                                <i class="la la-eye"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="la la-eye-slash"></i>
+                                            }
+                                        </td>
+                                        <td>
+                                            <i class="la la-expand"></i>
+                                        </td>
+                                        <td>
+                                            <a href="/Message/DeleteMessage/@message.Id" class="btn btn-danger">
+                                                <i class="la la-trash"></i>@* Delete *@
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
