@@ -42,14 +42,23 @@
                                         <td>@message.Content.Substring(0, 10)</td>
                                         <td>@message.CreatedDate.ToShortDateString()</td>
                                         <td>
+                                            <form action="/Message/MarkAsRead" method="post" style="display:inline;">
+                                                <input type="hidden" name="messageId" value="@message.Id" />
                                             @if (message.IsRead)
                                             {
-                                                <i class="la la-eye"></i>
+                                                <button type="submit" class="btn btn-dark">Okundu</button>
+                                                @* <a href="/Message/MarkAsUnRead/@message.Id" class="btn btn-dark">Okundu
+                                                    <i class="la la-eye"></i>
+                                                </a> *@
                                             }
                                             else
                                             {
-                                                <i class="la la-eye-slash"></i>
+                                                <button type="submit" class="btn btn-dark">Okunmadı</button>
+                                                @* <a href="/Message/MarkAsRead/@message.Id" class="btn btn-dark">Okunmadı
+                                                   <i class="la la-eye-slash"></i>
+                                                </a> *@
                                             }
+                                            </form>
                                         </td>
                                         <td>
                                             <!-- Button trigger modal -->
