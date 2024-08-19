@@ -43,5 +43,12 @@ namespace MyPortfolio.Controllers
             _context.SaveChanges();
             return RedirectToAction("Inbox");
         }
+
+        // Razor view ekleyip mesajları daha detaylı görebileceğimiz ayrı bir sayfa oluşturulabilir.. Ancak popup kullandığım için buna gerek yok..
+        //public IActionResult MessageDetail(int messageId)
+        //{
+        //    var value = _context.Messages.Find(messageId);
+        //    return View(value);
+        //}
     }
 }
