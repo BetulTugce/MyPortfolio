@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyPortfolio.DAL.Contexts;
+using MyPortfolio.DAL.Entities;
 
 namespace MyPortfolio.Controllers
 {
@@ -32,6 +33,14 @@ namespace MyPortfolio.Controllers
                 message.IsRead = false;
                 _context.SaveChanges();
             }
+            return RedirectToAction("Inbox");
+        }
+
+        public IActionResult DeleteMessage(int messageId) 
+        {
+            var value = _context.Messages.Find(messageId);
+            _context.Messages.Remove(value);
+            _context.SaveChanges();
             return RedirectToAction("Inbox");
         }
     }

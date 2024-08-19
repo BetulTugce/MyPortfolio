@@ -71,9 +71,15 @@
                                             @* <i class="la la-expand"></i> *@
                                         </td>
                                         <td>
-                                            <a href="/Message/DeleteMessage/@message.Id" class="btn btn-danger">
-                                                <i class="la la-trash"></i>@* Delete *@
-                                            </a>
+                                            @* <a href="/Message/DeleteMessage/@message.Id" class="btn btn-danger">
+                                                <i class="la la-trash"></i>
+                                            </a> *@
+                                            <form action="/Message/DeleteMessage" method="post" style="display:inline;">
+                                                <input type="hidden" name="messageId" value="@message.Id" />
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="la la-trash"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                     <!-- Modal -->
