@@ -1,0 +1,87 @@
+﻿@model List<ToDoList>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Layout/Index.cshtml";
+    int count = 0;
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <h4 class="page-title">To Do List</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">ToDoLists</div>
+                    </div>
+                    <div class="card-body">
+                        @* <div class="card-sub">
+                            You can perform operations related to ToDoLists from this panel.
+                        </div> *@
+                        <a href="/ToDoList/CreateToDoList" class="btn btn-primary">Create</a>
+                        <table class="table mt-3">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Content</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Created Date</th>
+                                    <th scope="col">Updated Date</th>
+                                    <th scope="col">Delete</th>
+                                    <th scope="col">Update</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var toDoList in Model)
+                                {
+                                    count++;
+                                    <tr>
+                                        <td>@count</td>
+                                        <td>@toDoList.Content</td>
+                                        <td>
+                                            <form action="/ToDoList/ChangeStatus" method="post" style="display:inline;">
+                                                <input type="hidden" name="taskId" value="@toDoList.Id" />
+                                                @if (toDoList.Status)
+                                                {
+                                                    <button type="submit" class="btn btn-dark">Yapıldı</button>
+                                                }
+                                                else
+                                                {
+                                                    <button type="submit" class="btn btn-dark">Yapılmadı</button>
+                                                }
+                                            </form>
+                                        </td>
+                                        <td>@toDoList.Date.ToShortDateString()</td>
+                                        <td>@toDoList.CreatedDate.ToShortDateString()</td>
+                                        <td>@(toDoList.UpdatedDate.ToShortDateString())</td>
+                                        <td>
+                                            <form action="/ToDoList/DeleteToDoList" method="post" style="display:inline;">
+                                                <input type="hidden" name="taskId" value="@toDoList.Id" />
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="la la-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            @* <form action="/ToDoList/UpdateToDoList" method="post" style="display:inline;">
+                                                <input type="hidden" name="taskId" value="@toDoList.Id" />
+                                                <button type="submit" class="btn btn-success">
+                                                    <i class="la la-edit"></i>
+                                                </button>
+                                            </form> *@
+                                            <a href="@Url.Action("UpdateToDoList", "ToDoList", new { taskId = toDoList.Id })" class="btn btn-success">
+                                                <i class="la la-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

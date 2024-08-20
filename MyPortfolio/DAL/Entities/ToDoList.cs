@@ -2,12 +2,14 @@
 
 namespace MyPortfolio.DAL.Entities
 {
-    public class Notification : BaseEntity
+    public class ToDoList : BaseEntity
     {
         public string Content { get; set; }
 
         public string ImageUrl { get; set; }
 
         public bool Status { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }
